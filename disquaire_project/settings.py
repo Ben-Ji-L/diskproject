@@ -32,6 +32,9 @@ DATABASES = {
         'HOST': '',
         'PORT': '5432',
         'ATOMIC_REQUESTS': True,
+        'TEST': {
+            'ENGINE': 'django.db.backends.sqlite3',
+        }
     }
 }
 
