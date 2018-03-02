@@ -5,8 +5,13 @@ python:
 
 install:
 - pip install -r requirements.txt
+- pip install coverage
 
-script: ./manage.py test
+script:
+  - ./manage.py test
+  - coverage run --source='.' manage.py test store
+
+after_success: coverage report
 
 deploy:
   provider: heroku
