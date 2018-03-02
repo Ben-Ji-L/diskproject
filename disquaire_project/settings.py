@@ -34,6 +34,7 @@ DATABASES = {
         'ATOMIC_REQUESTS': True,
         'TEST': {
             'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': 'test_db',
         }
     }
 }
