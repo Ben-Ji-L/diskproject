@@ -11,7 +11,7 @@ class IndexPageTestCase(TestCase):
     def test_index_page(self):
         # you must add a name to index view: `name="index"`
         response = self.client.get(reverse('index'))
-        self.assertEqual(response.status_code, 500)
+        self.assertEqual(response.status_code, 200)
 
 class DetailPageTestCase(TestCase):
 
