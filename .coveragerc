@@ -1,0 +1,7 @@
+[run]
+branch = False
+
+omit =
+    disquaire_project/*
+    env/*
+    store/migrations/*
