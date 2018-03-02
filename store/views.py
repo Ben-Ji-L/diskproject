@@ -2,8 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db import transaction, IntegrityError
 
-from .models import Album, Artist, Contact, Booking
-from .forms import ContactForm
+from .models import Album, Contact, Booking
 from .forms import ContactForm, ParagraphErrorList
 
 
