@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import sys
 import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -32,12 +33,14 @@ DATABASES = {
         'HOST': '',
         'PORT': '5432',
         'ATOMIC_REQUESTS': True,
-        'TEST': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': 'test_db',
-        }
     }
 }
+
+if 'test' in sys.argv:
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'test_db'
+    }
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'k#-(onbv%tf^i(ib1au!^kys=&1_h5jxp#iwqn_qa7#-^z(@i#'
