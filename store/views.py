@@ -1,11 +1,13 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db import transaction, IntegrityError
+from django.views.decorators.cache import cache_page
 
 from .models import Album, Contact, Booking
 from .forms import ContactForm, ParagraphErrorList
 
 
+@cache_page(60 * 15)
 def index(request):
     albums = Album.objects.filter(available=True).order_by('-created_at')[:12]
     context = {
@@ -13,6 +15,8 @@ def index(request):
     }
     return render(request, 'store/index.html', context)
 
+
+@cache_page(60 * 15)
 def listing(request):
     albums_list = Album.objects.filter(available=True)
     paginator = Paginator(albums_list, 9)
@@ -29,6 +33,8 @@ def listing(request):
     }
     return render(request, 'store/listing.html', context)
 
+
+@cache_page(60 * 15)
 @transaction.atomic
 def detail(request, album_id):
     album = get_object_or_404(Album, pk=album_id)
@@ -81,6 +87,8 @@ def detail(request, album_id):
     context['errors'] = form.errors.items()
     return render(request, 'store/detail.html', context)
 
+
+@cache_page(60 * 15)
 def search(request):
     query = request.GET.get('query')
     if not query:
