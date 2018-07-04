@@ -13,6 +13,7 @@ class IndexPageTestCase(TestCase):
         response = self.client.get(reverse('index'))
         self.assertEqual(response.status_code, 200)
 
+
 class DetailPageTestCase(TestCase):
 
     # ran before each test.
@@ -32,6 +33,7 @@ class DetailPageTestCase(TestCase):
         response = self.client.get(reverse('store:detail', args=(album_id,)))
         self.assertEqual(response.status_code, 404)
 
+
 class BookingPageTestCase(TestCase):
 
     def setUp(self):
@@ -47,8 +49,9 @@ class BookingPageTestCase(TestCase):
         old_bookings = Booking.objects.count()
         album_id = self.album.id
         name = self.contact.name
-        email =  self.contact.email
-        response = self.client.post(reverse('store:detail', args=(album_id,)), {
+        email = self.contact.email
+        response = self.client.post(reverse(
+            'store:detail', args=(album_id,)), {
             'name': name,
             'email': email
         })
@@ -59,8 +62,9 @@ class BookingPageTestCase(TestCase):
     def test_new_booking_belongs_to_a_contact(self):
         album_id = self.album.id
         name = self.contact.name
-        email =  self.contact.email
-        response = self.client.post(reverse('store:detail', args=(album_id,)), {
+        email = self.contact.email
+        response = self.client.post(reverse(
+            'store:detail', args=(album_id,)), {
             'name': name,
             'email': email
         })
@@ -71,8 +75,9 @@ class BookingPageTestCase(TestCase):
     def test_new_booking_belongs_to_an_album(self):
         album_id = self.album.id
         name = self.contact.name
-        email =  self.contact.email
-        response = self.client.post(reverse('store:detail', args=(album_id,)), {
+        email = self.contact.email
+        response = self.client.post(reverse(
+            'store:detail', args=(album_id,)), {
             'name': name,
             'email': email
         })
@@ -83,11 +88,13 @@ class BookingPageTestCase(TestCase):
     def test_album_not_available_if_booked(self):
         album_id = self.album.id
         name = self.contact.name
-        email =  self.contact.email
-        response = self.client.post(reverse('store:detail', args=(album_id,)), {
+        email = self.contact.email
+        response = self.client.post(reverse(
+            'store:detail', args=(album_id,)), {
             'name': name,
             'email': email
         })
-        # Make the query again, otherwise `available` will still be set at `True`
+        # Make the query again, otherwise `available`
+        # will still be set at `True`
         self.album.refresh_from_db()
         self.assertFalse(self.album.available)
